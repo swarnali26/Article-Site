@@ -12,10 +12,10 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    // protected $routeMiddleware = [
-    //     'cors' => \App\Http\Middleware\Cors::class,
-    //     'Authmiddleware'=> \App\Http\Middleware\Authmiddleware::class,
-    // ];
+    protected $routeMiddleware = [
+        'cors' => \App\Http\Middleware\Cors::class,
+        'Authmiddleware'=> \App\Http\Middleware\Authmiddleware::class,
+    ];
     protected $commands = [
         //
     ];
@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
     {
         //
     }
-    // protected $middleware = [
-    //     \App\Http\Middleware\Cors::class
-    // ];
+    protected $middleware = [
+        \App\Http\Middleware\Cors::class
+    ];
 }
