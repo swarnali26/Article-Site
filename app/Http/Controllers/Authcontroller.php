@@ -33,6 +33,7 @@ class Authcontroller extends Controller
             $role =$data->value('roleid');
             $token = Str::random(10);
            $this->insertToken($userid,$role,$token);
+           return response()->json(array("status" =>"ok"));
           }
           else
           {
@@ -57,6 +58,6 @@ class Authcontroller extends Controller
         $token->token= $z;
         $token->roleid= $roleid;
         $token->save();
-        return response()->json(array("status" =>"ok"));
+        
     }
  }
