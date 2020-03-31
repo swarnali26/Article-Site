@@ -7,6 +7,7 @@ use App\User;
 use App\Article;
 use App\Follow;
 use DB;
+use Validator;
 class Usercontroller extends Controller
 {
   
@@ -17,27 +18,11 @@ class Usercontroller extends Controller
       'lastname'=>'required|min:2|regex:/^[a-zA-Z]+$/u',
       'email' =>'required|email|unique:users',
       'password' =>'required',
-      'phone'=>'required|numeric|min:10|max:10',
+      'phone'=>'required',
        ]);
       if($validator->fails())
     {
-     return response()->json(
-        [ 'firstname.required'=>'field is required', 
-          'firstname.min'=>'firstname should contain minimum 3 letter',
-          'firstname.regex'=>'only character allowed',
-          'lastname.required'=>'field is required', 
-          'lastname.min'=>'only character allowed', 
-          'lastname.regex'=>'only character allowed',
-          'email.required'=>'field is required',
-          'email.email'=> 'The email must be a valid email address',
-          'email.unique'=> 'The email has already been taken',
-          'password.required'=>'field is required',
-          'phone.required'=>'field is required',
-          'phone.min'=>'field contain minimum 10 number',
-          'phone.max'=>'field contain maximum 10 number',
-          'phone.numeric'=>'only numbers allowed'
-        ]
-        );
+     return response()->json(['error'=>$validator->errors()],401);
     }
       $user = new User;
       $user->firstname = $request->input('firstname');

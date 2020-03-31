@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\User;
 use App\Token;
-use Illuminate\Support\Str;
+use Validator;
 use DB;
 class Authcontroller extends Controller
 {
@@ -32,26 +32,32 @@ class Authcontroller extends Controller
             $userid=$data->value('userid');
             $role =$data->value('roleid');
             $token = Str::random(10);
-            $this->insertToken($userid,$role,$token);
+           $this->insertToken($userid,$role,$token);
           }
           else
           {
-            return response()->json(array("status" =>"not valid"));
+            return response()->json(array("status" =>"Unauthorised"));
           }
     
     }
    
     public function insertToken($userid,$role,$token)
     {
-        $token=$token;
+       
         $userid=$userid;
+        $token=$token;
         $role=$role;
 
+        $user=$userid;
+        $roleid=$role;
+        $z=$token;
+        
         $token = new Token;
-        $token->userid= $userid;
-        $token->token= $token;
-        $token->roleid= $role;
+        $token->userid =$user;
+        $token->token= $z;
+        $token->roleid= $roleid;
         $token->save();
+    
         
         return response()->json(array("status" =>"ok"));
     }

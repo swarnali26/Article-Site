@@ -22,33 +22,3 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Getting Started
-
-If you want to install Lumen from scratch and follow along, follow the instructions here: http://lumen.laravel.com/docs/installation
-
-When you're ready to create a new project, issue the following command `lumen new lumen-api`
-
-If you're using Homestead, this should be no different for you than a Laravel app.
-
-If you're developing locally, you should know that the `artisan` command is missing the `serve` command. I recommend that you use PHP's built in web server: `php -S 127.0.0.1:8080 -t public/`
-
-
-## Configure your .env File
-Lumen requires several environment variables to function properly. The .env.template file contains the requisite fields without their respective values. To configure Lumen, do the following:
-
-   #cd to your project's root directory
-   #copy the .env.template file's contents
-   #into a file named .env 
-   #the .env file should resemble the following when complete
-APP_ENV=local
-APP_DEBUG=true
-APP_KEY=YOUR_SECRECT_KEY_HERE
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_DATABASE= write the name of th database
-DB_USERNAME= root
-DB_PASSWORD= write the password and keep it blank if not required
-CACHE_DRIVER=file
-SESSION_DRIVER=file
-QUEUE_DRIVER=database
