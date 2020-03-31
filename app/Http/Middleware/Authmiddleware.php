@@ -16,9 +16,7 @@ class Authmiddleware
     public function handle($request, Closure $next)
     {
         $gettoken=$request->header('token');
-        
-        $userid=DB::table('token')->where('token',$gettoken)->value('userid');
-        
+        $userid = Token::where('token', '=', $token)->value('userid');
         $data= DB::table('users')->where('userid',$userid);
         if($userid==0)
         {

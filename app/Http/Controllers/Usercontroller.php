@@ -9,6 +9,46 @@ use App\Follow;
 use DB;
 class Usercontroller extends Controller
 {
+  
+  public function create(Request $request)
+  {   
+      $validator = Validator::make($request->all(), [
+      'firstname'=>'required|min:3|regex:/^[a-zA-Z]+$/u',
+      'lastname'=>'required|min:2|regex:/^[a-zA-Z]+$/u',
+      'email' =>'required|email|unique:users',
+      'password' =>'required',
+      'phone'=>'required|numeric|min:10|max:10',
+       ]);
+      if($validator->fails())
+    {
+     return response()->json(
+        [ 'firstname.required'=>'field is required', 
+          'firstname.min'=>'firstname should contain minimum 3 letter',
+          'firstname.regex'=>'only character allowed',
+          'lastname.required'=>'field is required', 
+          'lastname.min'=>'only character allowed', 
+          'lastname.regex'=>'only character allowed',
+          'email.required'=>'field is required',
+          'email.email'=> 'The email must be a valid email address',
+          'email.unique'=> 'The email has already been taken',
+          'password.required'=>'field is required',
+          'phone.required'=>'field is required',
+          'phone.min'=>'field contain minimum 10 number',
+          'phone.max'=>'field contain maximum 10 number',
+          'phone.numeric'=>'only numbers allowed'
+        ]
+        );
+    }
+      $user = new User;
+      $user->firstname = $request->input('firstname');
+      $user->lastname = $request->input('lastname');
+      $user->email = $request->input('email');
+      $user->password = md5($request->input('password'));
+      $user->phone = $request->input('phone');
+      $user->roleid=2;
+      $user->save();
+       return response()->json($user);
+  }
     public function createArticle(Request $request)
     {
         
@@ -57,12 +97,12 @@ class Usercontroller extends Controller
       DB::table('follow')->select('userid','=',$userid)->where('follow', '=', $delete)->delete();  
     }
     
- public function Adminview()
+ public function adminView()
  {
   $data= User::with('article')->find(1);
   return response()->json($data);
 }
- public function AdminDeleteArticle(Request $request)
+ public function adminDeleteArticle(Request $request)
 {
   $delete=$request->input('articleid');
   DB::table('articles')->where('articleid', '=',$delete )->delete();

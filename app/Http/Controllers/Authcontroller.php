@@ -5,70 +5,54 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Token;
-
+use Illuminate\Support\Str;
 use DB;
 class Authcontroller extends Controller
 {
-    public function create(Request $request)
-    {
-        $user = new User;
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('lastname');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-        $user->phone = $request->input('phone');
-        $user->save();
-         return response()->json($user);
-    }
     
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+         'email' =>'required|email',
+         'password' =>'required',
+         ]);
+        if($validator->fails())
+      {
+        return response()->json(
+          ['error'=>$validator->errors()],401
+         );
+      }
+
           $email=$request->input('email');
-          $password=$request->input('password');
+          $password=md5($request->input('password'));
           $check= User::where('email',$email)->where('password',$password)->get()->count();
           if(($check)>0)
           {
             $data= User::where('email',$email)->where('password',$password);
             $userid=$data->value('userid');
             $role =$data->value('roleid');
-            $this->Generatetoken($userid,$role);
+            $token = Str::random(10);
+            $this->insertToken($userid,$role,$token);
           }
           else
           {
-               echo "not invalid";
+            return response()->json(array("status" =>"not valid"));
           }
     
     }
-    public function Generatetoken($userid,$role)
-    {
-        $x=$userid;
-        
-        $y=$role;
-        
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-        $token = ''; 
-      
-        for ($i = 0; $i < 10; $i++) 
-        { 
-            $index = rand(0, strlen($characters) - 1); 
-            $token .= $characters[$index]; 
-        }
-             $this->Inserttoken($token,$x,$y);
-    }
-    public function Inserttoken($token,$x,$y)
+   
+    public function insertToken($userid,$role,$token)
     {
         $token=$token;
-        $userid=$x;
-        $role=$y;
+        $userid=$userid;
+        $role=$role;
+
+        $token = new Token;
+        $token->userid= $userid;
+        $token->token= $token;
+        $token->roleid= $role;
+        $token->save();
         
-        
-        DB::table('tokens')->insert(['userid'=>$userid, 'token'=>$token,'roleid'=>$role]);
-        //  $token = new Token;
-        //  $token->userid= $userid;
-        //  $token->token= $token;
-        //  $token->roleid= $role;
-        //  $token->save();
-        //  echo "ok";
         return response()->json(array("status" =>"ok"));
     }
  }
