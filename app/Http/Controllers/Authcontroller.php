@@ -57,8 +57,6 @@ class Authcontroller extends Controller
         $token->token= $z;
         $token->roleid= $roleid;
         $token->save();
-    
-        
         return response()->json(array("status" =>"ok"));
     }
  }

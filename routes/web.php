@@ -16,3 +16,9 @@ $router->get('/', function () use ($router) {
 });
 $router->post("create","Usercontroller@create");
 $router->get("login","Authcontroller@login");
+$router->get("createarticles","Usercontroller@createArticle");
+$router->get("showarticles","Usercontroller@showArticle");
+$router->get("follow","Usercontroller@follow");
+$router->get("unfollow","Usercontroller@unfollow");
+$router->get("Adminview","Usercontroller@adminview");
+$router->get("AdminDeleteArticle","Usercontroller@adminDeleteArticle");
