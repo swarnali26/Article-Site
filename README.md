@@ -34,7 +34,7 @@ If you're using Homestead, this should be no different for you than a Laravel ap
 If you're developing locally, you should know that the `artisan` command is missing the `serve` command. I recommend that you use PHP's built in web server: `php -S 127.0.0.1:8080 -t public/`
 
 ## Generate swagger with the command:
-User another to terminal:
+User another terminal to generate or update swagger.json file in /public dir:
 ```
 php artisan swagger:scan
 ```
