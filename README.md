@@ -35,10 +35,10 @@ If you're developing locally, you should know that the `artisan` command is miss
 
 ## Generate swagger with the command:
 User another to terminal:
-'''
+```
 php artisan swagger:scan
-'''
-url view swagger: localhost:8080/swagger-ui.html
+```
+url view swagger: `localhost:8080/swagger-ui.html`
 
 
 ## Configure your .env File
@@ -48,6 +48,7 @@ Lumen requires several environment variables to function properly. The .env.temp
    #copy the .env.template file's contents
    #into a file named .env 
    #the .env file should resemble the following when complete
+```   
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY=YOUR_SECRECT_KEY_HERE
@@ -59,3 +60,4 @@ DB_PASSWORD= write the password and keep it blank if not required
 CACHE_DRIVER=file
 SESSION_DRIVER=file
 QUEUE_DRIVER=database
+```
