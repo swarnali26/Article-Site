@@ -33,6 +33,13 @@ If you're using Homestead, this should be no different for you than a Laravel ap
 
 If you're developing locally, you should know that the `artisan` command is missing the `serve` command. I recommend that you use PHP's built in web server: `php -S 127.0.0.1:8080 -t public/`
 
+## Generate swagger with the command:
+User another to terminal:
+'''
+php artisan swagger:scan
+'''
+url view swagger: localhost:8080/swagger-ui.html
+
 
 ## Configure your .env File
 Lumen requires several environment variables to function properly. The .env.template file contains the requisite fields without their respective values. To configure Lumen, do the following:
