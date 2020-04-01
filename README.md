@@ -35,10 +35,10 @@ If you're developing locally, you should know that the `artisan` command is miss
 
 ## Generate swagger with the command:
 User another to terminal:
-'''
+```
 php artisan swagger:scan
-'''
-url view swagger: localhost:8080/swagger-ui.html
+```
+url view swagger: `localhost:8080/swagger-ui.html`
 
 
 ## Configure your .env File
