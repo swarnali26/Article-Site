@@ -8,9 +8,34 @@ use App\Article;
 use App\Follow;
 use DB;
 use Validator;
+
 class Usercontroller extends Controller
 {
-  
+      /**
+     * @OA\Post(
+     *     path="/create",
+     *     operationId="create user",
+     *     description="Creates a new user",
+     *     @OA\RequestBody(
+     *         description="Pet to add to the store",
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *       
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Created response",
+     *     
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="unexpected error",
+     *     
+     *     )
+     * )
+     */
     public function create(Request $request)
     {   
         $validator = Validator::make($request->all(), [
@@ -35,6 +60,7 @@ class Usercontroller extends Controller
         return response()->json($user);
     }
   
+
     public function createArticle(Request $request)
     {
         
@@ -45,6 +71,25 @@ class Usercontroller extends Controller
         $article->description = $request->input('description');
         $article->save();
     }
+    
+   /**
+     * @OA\Get(
+     *     path="/showarticles",
+     *     summary="get article list",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Pet")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Invalid tag value",
+     *     )
+     * )
+     */
     public function showArticle()
     {
         $userid= $request->userid;
