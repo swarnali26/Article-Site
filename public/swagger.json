@@ -1,0 +1,44 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Article API Documentation",
+        "version": "0.1"
+    },
+    "paths": {
+        "/create": {
+            "post": {
+                "description": "Creates a new user",
+                "operationId": "create user",
+                "requestBody": {
+                    "description": "Pet to add to the store",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created response"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/showarticles": {
+            "get": {
+                "summary": "get article list",
+                "operationId": "App\\Http\\Controllers\\Usercontroller::showArticle",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid tag value"
+                    }
+                }
+            }
+        }
+    }
+}
