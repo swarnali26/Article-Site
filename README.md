@@ -41,6 +41,7 @@ Lumen requires several environment variables to function properly. The .env.temp
    #copy the .env.template file's contents
    #into a file named .env 
    #the .env file should resemble the following when complete
+```   
 APP_ENV=local
 APP_DEBUG=true
 APP_KEY=YOUR_SECRECT_KEY_HERE
@@ -52,3 +53,4 @@ DB_PASSWORD= write the password and keep it blank if not required
 CACHE_DRIVER=file
 SESSION_DRIVER=file
 QUEUE_DRIVER=database
+```
