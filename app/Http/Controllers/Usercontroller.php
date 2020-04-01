@@ -11,29 +11,30 @@ use Validator;
 class Usercontroller extends Controller
 {
   
-  public function create(Request $request)
-  {   
-      $validator = Validator::make($request->all(), [
-      'firstname'=>'required|min:3|regex:/^[a-zA-Z]+$/u',
-      'lastname'=>'required|min:2|regex:/^[a-zA-Z]+$/u',
-      'email' =>'required|email|unique:users',
-      'password' =>'required',
-      'phone'=>'required',
-       ]);
-      if($validator->fails())
-    {
-     return response()->json(['error'=>$validator->errors()],401);
+    public function create(Request $request)
+    {   
+        $validator = Validator::make($request->all(), [
+        'firstname'=>'required|min:3|regex:/^[a-zA-Z]+$/u',
+        'lastname'=>'required|min:2|regex:/^[a-zA-Z]+$/u',
+        'email' =>'required|email|unique:users',
+        'password' =>'required',
+        'phone'=>'required',
+        ]);
+        if($validator->fails())
+        {
+        return response()->json(['error'=>$validator->errors()],401);
+        }
+        $user = new User;
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->password = md5($request->input('password'));
+        $user->phone = $request->input('phone');
+        $user->roleid=2;
+        $user->save();
+        return response()->json($user);
     }
-      $user = new User;
-      $user->firstname = $request->input('firstname');
-      $user->lastname = $request->input('lastname');
-      $user->email = $request->input('email');
-      $user->password = md5($request->input('password'));
-      $user->phone = $request->input('phone');
-      $user->roleid=2;
-      $user->save();
-       return response()->json($user);
-  }
+  
     public function createArticle(Request $request)
     {
         
@@ -82,16 +83,16 @@ class Usercontroller extends Controller
       DB::table('follow')->select('userid','=',$userid)->where('follow', '=', $delete)->delete();  
     }
     
- public function adminView()
- {
-  $data= User::with('article')->find(1);
-  return response()->json($data);
-}
- public function adminDeleteArticle(Request $request)
-{
-  $delete=$request->input('articleid');
-  DB::table('articles')->where('articleid', '=',$delete )->delete();
+    public function adminView()
+    {
+      $data= User::with('article')->find(1);
+      return response()->json($data);
+    }
+    public function adminDeleteArticle(Request $request)
+    {
+      $delete=$request->input('articleid');
+      DB::table('articles')->where('articleid', '=',$delete )->delete();
 
-}
+    }
     
 }
