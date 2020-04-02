@@ -44,11 +44,6 @@ class Authcontroller extends Controller
    
     public function insertToken($userid,$role,$token)
     {
-       
-        $userid=$userid;
-        $token=$token;
-        $role=$role;
-
         $user=$userid;
         $roleid=$role;
         $z=$token;
@@ -57,7 +52,8 @@ class Authcontroller extends Controller
         $token->userid =$user;
         $token->token= $z;
         $token->roleid= $roleid;
-        $token->save();
+        
+        dd($token->save());
         
     }
  }
