@@ -104,7 +104,7 @@ class Usercontroller extends Controller
      */
     public function showArticle(Request $request)
     {
-        $userid= $request->userid;
+        dd($userid= $request->userid);
         $roleid= Token::where('userid','=', $userid)->value('roleid');
         $check= Follow::where('userid','=',$userid)->get()->count();
         
@@ -113,10 +113,13 @@ class Usercontroller extends Controller
           
         if(($check)>0) 
         {
+          $show= Article::where('userid','=',$userid)->get();
           $data= DB::table('follow')->join('articles','articles.userid','=','follow.follow')
           ->where('follow.userid','=',$userid)
           ->select('articles.userid','articles.title','articles.description')->get();
-          return response()->json($data);
+          return response()->json(array('my article'=>$show,
+          'article'=>$data
+        ));
         
         }
         else {
@@ -126,9 +129,10 @@ class Usercontroller extends Controller
 
         }
       }
-      else {
-        return response()->json("Unauthorized",401);
-      }
+      else 
+         {
+            return response()->json("Unauthorized",401);
+         }
       }
       
       
@@ -180,42 +184,67 @@ class Usercontroller extends Controller
       {
       return response()->json("Unauthorized",401);
       }
-
     }
-    
-    public function adminView(Request $request)
-    {
-      $userid= $request->userid;
-      $roleid= Token::where('userid','=', $userid)->value('roleid');
-      
-      if(($roleid)=='1')
+      public function update(Request $request,$id)
+      { 
+        $userid= $request->userid;
+        $roleid= Token::where('userid','=', $userid)->value('roleid');
+        if(($roleid)=='2')
+        {
+         $article= Article::find($id);
+         $article->title = $request->input('title');
+         $article->description = $request->input('description');
+         $article->save();
+         return response()->json($article);
+        }
+        else
       {
-      $data= User::with('article')->get();
-      return response()->json($data);
-      }
-      else
-       {
       return response()->json("Unauthorized",401);
-       }
-    }
-    public function adminDeleteArticle(Request $request)
-    {
-      $userid= $request->userid;
-      $roleid= Token::where('userid','=', $userid)->value('roleid');
-      
-      if(($roleid)=='1')
-      {
-      $delete=$request->input('articleid');
-      
-      DB::table('articles')->where('id', '=',$delete )->delete();
-      
-      return response()->json(array("status" =>"deleted"));
-      }
-      else
-      {
-     return response()->json("Unauthorized",401);
       }
 
+      }
+      public function adminView(Request $request)
+        {
+        $userid= $request->userid;
+        $roleid= Token::where('userid','=', $userid)->value('roleid');
+      
+        if(($roleid)=='1')
+         {
+               $data= User::with('article')->get();
+               return response()->json($data);
+         }
+        else
+         {
+               return response()->json("Unauthorized",401);
+         }
+      }
+    public function adminDeleteArticle(Request $request)
+      {
+          $userid= $request->userid;
+          $roleid= Token::where('userid','=', $userid)->value('roleid');
+      
+          if(($roleid)=='1')
+            {
+                 $delete=$request->input('articleid');
+      
+                 DB::table('articles')->where('id', '=',$delete )->delete();
+      
+                 return response()->json(array("status" =>"deleted"));
+            }
+          else
+             {
+                 return response()->json("Unauthorized",401);
+             }
+
     }
+    public function logout(Request $request)
+    {
+      $userid= $request->userid;
+       Token::where('userid','=', $userid)->delete();
+      return response()->json(array("status" => "logged out"));
+
+    }
+
+
     
 }

@@ -33,8 +33,15 @@ $router->group(['middleware' => 'auth'], function ($router) {
 $router->get("unfollow","Usercontroller@unfollow");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
+    $router->put('/update/{id}',"usercontroller@update");
+});
+$router->group(['middleware' => 'auth'], function ($router) {
 $router->get("Adminview","Usercontroller@adminview");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
 $router->get("AdminDeleteArticle","Usercontroller@adminDeleteArticle");
 });
+$router->group(['middleware' => 'auth'], function ($router) {
+$router->delete("logout","Usercontroller@logout");
+});
+
