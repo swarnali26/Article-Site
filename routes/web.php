@@ -15,22 +15,22 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->post("create","Usercontroller@create");
-$router->get("login","Authcontroller@login");
+$router->post("login","Authcontroller@login");
 
 $router->group(['middleware' => 'auth'], function ($router) {
-$router->get("createarticles","Usercontroller@createArticle");
+$router->post("createarticles","Usercontroller@createArticle");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
 $router->get("showarticles","Usercontroller@showArticle");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
-    $router->get("comment","Usercontroller@comment");
+    $router->post("comment","Usercontroller@comment");
     });
 $router->group(['middleware' => 'auth'], function ($router) {
-$router->get("follow","Usercontroller@follow");
+$router->post("follow","Usercontroller@follow");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
-$router->get("unfollow","Usercontroller@unfollow");
+$router->post("unfollow","Usercontroller@unfollow");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
     $router->put('/update/{id}',"usercontroller@update");
@@ -39,7 +39,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
 $router->get("Adminview","Usercontroller@adminview");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
-$router->get("AdminDeleteArticle","Usercontroller@adminDeleteArticle");
+$router->delete("AdminDeleteArticle","Usercontroller@adminDeleteArticle");
 });
 $router->group(['middleware' => 'auth'], function ($router) {
 $router->delete("logout","Usercontroller@logout");

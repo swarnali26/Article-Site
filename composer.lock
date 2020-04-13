@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8377ccbcd087613855f1539b078ac47",
+    "content-hash": "225d2c08823b03821561905f9b3de425",
     "packages": [
         {
             "name": "brick/math",
@@ -359,6 +359,56 @@
                 "validator"
             ],
             "time": "2020-02-13T22:36:52+00:00"
+        },
+        {
+            "name": "elemenx/laravel-api-pagination",
+            "version": "0.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elemenx/laravel-api-pagination.git",
+                "reference": "78c07065adb9df8e68a6631aef91e7a5f6973a42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elemenx/laravel-api-pagination/zipball/78c07065adb9df8e68a6631aef91e7a5f6973a42",
+                "reference": "78c07065adb9df8e68a6631aef91e7a5f6973a42",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ElemenX\\ApiPagination\\PaginationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ElemenX\\ApiPagination\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BranchZero Sun",
+                    "email": "branchzero@gmail.com"
+                }
+            ],
+            "description": "API Pagination For Laravel & Lumen",
+            "keywords": [
+                "api",
+                "elemenx",
+                "laravel",
+                "lumen",
+                "pagination"
+            ],
+            "time": "2018-03-12T08:08:20+00:00"
         },
         {
             "name": "illuminate/auth",

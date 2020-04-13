@@ -31,29 +31,30 @@ class Authcontroller extends Controller
             $data= User::where('email',$email)->where('password',$password);
             $userid=$data->value('userid');
             $role =$data->value('roleid');
-            $token = Str::random(10);
-           $this->insertToken($userid,$role,$token);
-           return response()->json(array("status" =>"ok"));
+            
+           $token = $this->insertToken($userid,$role);
+           return response()->json(array("status" =>"ok",
+          "token"=> $token
+          ));
           }
           else
           {
-            return response()->json(array("status" =>"Unauthorised"));
+            return response()->json(array("status" =>false));
           }
     
     }
    
-    public function insertToken($userid,$role,$token)
+    public function insertToken($userid,$role)
     {
-        $user=$userid;
-        $roleid=$role;
-        $z=$token;
-        
+      
+        $temp_token = Str::random(20);
         $token = new Token;
-        $token->userid =$user;
-        $token->token= $z;
-        $token->roleid= $roleid;
+        $token->userid =$userid;
+        $token->token= $temp_token;
+        $token->roleid= $role;
+        $token->save();
+        return  $temp_token ;
         
-        dd($token->save());
         
     }
  }

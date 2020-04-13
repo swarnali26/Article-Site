@@ -39,6 +39,105 @@
                     }
                 }
             }
+        },
+        "/follow":{
+            "post":{
+            "summary": "follow",
+            "operationId": "App\\Http\\Controllers\\Usercontroller::follow",
+            "responses":{
+           "200": {
+            "description": "successfully followed"
+           },
+           "400":{
+            "description": "Invalid tag value"
+           }
+           }
+           }
+        },
+         "/unfollow":{
+            "post":{
+            "summary": "unfollow",
+            "operationId": "App\\Http\\Controllers\\Usercontroller::unfollow",
+            "responses":{
+            "200":{
+            "description": "successfully unfollowed"
+            },
+            "400":{
+            "description": "Invalid tag value"
+            }
         }
     }
+},
+           "/comment":{
+           "post":{
+           "summary": "comment on article",
+           "operationId": "App\\Http\\Controllers\\Usercontroller::comment",
+           "responses":{
+           "200":{
+           "description": "successful operation"
+           },
+           "400":{
+          "description": "Invalid tag value"
+           }
+        }
+    }
+},
+          
+           "/update":{
+           "put":{
+           "summary": "update article",
+           "operationId": "App\\Http\\Controllers\\Usercontroller::update",
+           "responses":{
+           "200":{
+           "description": "successfully updated"
+           },
+           "400":{
+            "description": "Invalid tag value"
+           }
+        }
+    }
+},
+          "/adminView":{
+          "delete":{
+          "summary": "admin get article list",
+          "operationId": "App\\Http\\Controllers\\Usercontroller::adminView",
+          "responses":{
+          "200":{
+          "description": "successful operation"
+          },
+          "400":{
+          "description": "Invalid tag value"
+          }
+        }
+    }
+},
+          "/adminDeleteArticle":{
+          "delete":{
+          "summary": "admin can delete article", 
+          "operationId": "App\\Http\\Controllers\\Usercontroller::adminDeleteArticle",
+          "responses":{
+          "200":{
+           "description": "successful operation"
+          },
+          "400":{
+           "description":"Invalid tag value"
+          }
+        }
+    }
+},
+           "/logout":{
+            "delete":{
+            "summary": "logout", 
+            "operationId": "App\\Http\\Controllers\\Usercontroller::logout",
+            "responses":{
+            "200":{
+            "description": "successful operation"
+            },
+            "400":{
+            "description": "Invalid tag value"
+            }
+          }
+        }
+      }
+   }
 }
