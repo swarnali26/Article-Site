@@ -9,7 +9,7 @@ use App\Follow;
 use App\Comment;
 use App\Token;
 use App\Role;
-use DB;
+use Mail;
 use Illuminate\Pagination;
 
 use Validator;
@@ -42,7 +42,8 @@ class Usercontroller extends Controller
      * )
      */
     public function create(Request $request)
-    {   $role= Role::where('name','=','user')->value('roleid');
+     {   
+         $role= Role::where('name','=','user')->value('roleid');
         $validator = Validator::make($request->all(), [
         'firstname'=>'required|min:3|regex:/^[a-zA-Z]+$/u',
         'lastname'=>'required|min:2|regex:/^[a-zA-Z]+$/u',
@@ -62,10 +63,16 @@ class Usercontroller extends Controller
         $user->phone = $request->input('phone');
         $user->roleid=$role;
         $user->save();
+        Mail::raw('Welcome, you have sucessfully registered!',function($message)
+        {
+            $message->to('swarnali.marik@gmail.com')->subject('test mail');
+            $message->from('swarnali.marik5@gmail.com');
+
+        });
         return response()->json(array("status"=>true,
         "data"=>$user,
-        "message"=> "You have successfully registered"));
-    }
+        "message"=> "Mail has been sent"));
+     }
     /**
      * @OA\Post(
      *     path="/createArticle",

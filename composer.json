@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.2.5",
         "elemenx/laravel-api-pagination": "^0.1.6",
+        "illuminate/mail": "^7.6",
         "laravel/lumen-framework": "^7.0",
         "zircote/swagger-php": "^3.0"
     },

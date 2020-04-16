@@ -61,3 +61,10 @@ CACHE_DRIVER=file
 SESSION_DRIVER=file
 QUEUE_DRIVER=database
 ```
+## Configure your .env File for mail
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=write your mail id
+MAIL_PASSWORD=write your password
+MAIL_ENCRYPTION=ssl
