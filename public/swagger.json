@@ -5,6 +5,27 @@
         "version": "0.1"
     },
     "paths": {
+        "/login": {
+            "post": {
+                "description": "Logs user into system",
+                "operationId": "Logs user into system",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created response"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
         "/create": {
             "post": {
                 "description": "Creates a new user",

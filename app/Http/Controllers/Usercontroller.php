@@ -64,7 +64,7 @@ class Usercontroller extends Controller
         $user->save();
         return response()->json(array("status"=>true,
         "data"=>$user,
-        "message"=> "successful"));
+        "message"=> "You have successfully registered"));
     }
     /**
      * @OA\Post(
@@ -117,11 +117,11 @@ class Usercontroller extends Controller
         $article->save();
         return response()->json(array("status"=>true,
         "data"=>$article,
-        "message"=> "successful"));
+        "message"=> "Article created successfully"));
       }
       else
         {
-          return response()->json(array("status"=> false));
+          return response()->json(array("status"=> false, "message"=>"unauthorised"));
         }
 
     }
@@ -151,33 +151,34 @@ class Usercontroller extends Controller
         $check= Follow::where('userid','=',$userid)->get()->count();
         $role= Role::where('roleid','=',$roleid)->value('name');
         $show= Article::where('userid','=',$userid)->simplePaginate(2);
-        if(($role)=='user' && ($check)>0 )
+        if(($role)=='user')
         {
           
-        // if(($check)>0) 
-        // {
+             if(($check)>0) 
+            {
           
-          $data= Follow::join('articles','articles.userid','=','follow.follow')
-          ->where('follow.userid','=',$userid)
-          ->select('articles.userid','articles.title','articles.description')->paginate(2);
-          return response()->json(array("status"=>true,
-            'My article'=>$show,
-            'User article'=>$data
-            ));
+                $data= Follow::join('articles','articles.userid','=','follow.follow')
+               ->where('follow.userid','=',$userid)
+               ->select('articles.userid','articles.title','articles.description')->paginate(2);
+               return response()->json(array("status"=>true,
+               'My article'=>$show,
+               'User article'=>$data
+                ));
         
-        // }
-        // else 
-        //   {
-        //     $data= Article::select('userid')->get();
-        //   return response()->json(array("status"=> true,
-        //      'My article'=>$show,
-        //     "article posted by"=>$data,
-        //     'message'=> 'To view the articles you have to follow the individual'));
-        //   }
-      }
+            }
+              else 
+             {
+                $data= Article::select('userid')->get();
+                return response()->json(array("status"=> true,
+               'My article'=>$show,
+               "article posted by"=>$data,
+                'message'=> 'To view the articles you have to follow the individual'));
+               }
+       }
       else 
          {
-            return response()->json(array("status"=> false));
+            return response()->json(array("status"=> false,
+          "message"=>"unauthorised"));
          }
       }
       /**
@@ -218,10 +219,10 @@ class Usercontroller extends Controller
       $roleid= Token::where('userid','=', $userid)->value('roleid');
       $check= Follow::where('userid','=',$userid)->get()->count();
       $role= Role::where('roleid','=',$roleid)->value('name');
-      if(($role)=='user' && ($check)>0 )
+      if(($role)=='user' )
       {
-           //  if()
-          //    {
+            if(($check)>0)
+             {
               $comment = new Comment ;
               $comment->userid = $userid;
               $comment->articleid=$request->input('articleid');
@@ -230,12 +231,12 @@ class Usercontroller extends Controller
               return response()->json(array("status"=>true,
               "data"=>$comment,
               "message"=> "successful"));
-            // }
-            // else
-            // {
-            //   return response()->json(array("status"=> false,
-            // "message"=> "unauthorised"));
-            // }
+            }
+            else
+            {
+              return response()->json(array("status"=> false,
+            "message"=> "You have to follow a individual to comment on a article"));
+            }
         }
         else 
         {
@@ -288,16 +289,17 @@ class Usercontroller extends Controller
         {
           return response()->json(array("status"=> false,"message"=>"Already followed"));
         }
-        else {
+        else 
+           {
 
-      $follow = new Follow;
-      $follow->userid = $userid;
-      $follow->follow = $request->input('follow');
-      $follow->save();
-      return response()->json(array("status"=>true,
+             $follow = new Follow;
+             $follow->userid = $userid;
+             $follow->follow = $request->input('follow');
+             $follow->save();
+             return response()->json(array("status"=>true,
               "data"=>$follow,
               "message"=> "followed to userid ".$follow->follow ));
-        }
+            }
       }
       else{
         return response()->json(array("status"=> false,"message"=>"Unauthorized"));
@@ -343,7 +345,6 @@ class Usercontroller extends Controller
       if(($role)=='user')
       {
       $delete=$request->input('unfollow');
-      //DB::table('follow')->where('follow', '=', $delete)->select('userid','=',$userid)->delete(); 
       Follow::where('follow', '=', $delete)->select('userid','=',$userid)->delete();
       return response()->json(array("status"=>true,
              "message"=>"unfollowed to the userid ".$delete ));

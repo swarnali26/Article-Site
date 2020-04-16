@@ -9,7 +9,54 @@ use Validator;
 use DB;
 class Authcontroller extends Controller
 {
-    
+    /**
+     * @OA\post(
+     *     path="/login",
+     *     tags={"user"},
+     *     summary="Logs user into system",
+     *     operationId="loginUser",
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="The email address for login",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *    
+     *         @OA\Header(
+     *             header="X-Expires-After",
+     *             description="date in UTC when token expires",
+     *             @OA\Schema(
+     *                 type="string",
+     *                 format="datetime"
+     *             )
+     *         ),
+     *         @OA\JsonContent(
+     *             type="string"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/xml",
+     *             @OA\Schema(
+     *                 type="string"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid username/password supplied"
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
