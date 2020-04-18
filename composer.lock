@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acdab156764a689a7ea0bd5f1e882e98",
+    "content-hash": "4fcf406f4b73c72e50f46fdb648d94d5",
     "packages": [
         {
             "name": "brick/math",
@@ -1659,6 +1659,59 @@
             "description": "The Illuminate View package.",
             "homepage": "https://laravel.com",
             "time": "2020-03-31T14:12:04+00:00"
+        },
+        {
+            "name": "irazasyed/larasupport",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/irazasyed/larasupport.git",
+                "reference": "6532d924f288f001522792ad88edbeb7b4f08f2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/irazasyed/larasupport/zipball/6532d924f288f001522792ad88edbeb7b4f08f2d",
+                "reference": "6532d924f288f001522792ad88edbeb7b4f08f2d",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Irazasyed\\Larasupport\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Syed Irfaq R.",
+                    "email": "syed+gh@lukonet.com",
+                    "homepage": "https://lukonet.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Adds Support to use Laravel Packages in Lumen.",
+            "keywords": [
+                "laravel",
+                "laravel lumen support",
+                "laravel packages",
+                "lumen packages",
+                "lumen support"
+            ],
+            "time": "2017-09-19T20:16:14+00:00"
         },
         {
             "name": "laravel/lumen-framework",

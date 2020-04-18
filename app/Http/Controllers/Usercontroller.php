@@ -147,8 +147,9 @@ class Usercontroller extends Controller
       $filename=$file->getClientOriginalName();
       
       $path = $request->image->storeAs('images',$filename,'public');
+      
       $imagepath= app('url')->asset("storage/app/images/".$filename); 
-      echo $imagepath;
+      return $imagepath;
       }
   
     
