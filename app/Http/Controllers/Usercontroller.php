@@ -145,9 +145,7 @@ class Usercontroller extends Controller
           return response()->json(['invalid_file_upload'], 400);
       }
       $filename=$file->getClientOriginalName();
-      
       $path = $request->image->storeAs('images',$filename,'public');
-      
       $imagepath= app('url')->asset("storage/app/images/".$filename); 
       return $imagepath;
       }

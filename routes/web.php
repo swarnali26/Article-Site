@@ -16,7 +16,7 @@ $router->get('/', function () use ($router) {
 });
 $router->post("create","Usercontroller@create");
 $router->post("login","Authcontroller@login");
- $router->post("upload","Usercontroller@uploadImage");
+ //$router->post("upload","Usercontroller@uploadImage");
 
 $router->group(['middleware' => 'auth'], function ($router) {
 $router->post("createarticles","Usercontroller@createArticle");
