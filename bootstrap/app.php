@@ -63,7 +63,9 @@ $app->singleton(
 */
 
 $app->configure('app');
+//$app->configure('apidoc');
 $app->configure('mail');
+$app->configure('services');
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +107,7 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
 $app->register(ElemenX\ApiPagination\PaginationServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 

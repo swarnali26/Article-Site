@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Pagination;
 use App\User;
 use App\Article;
 use App\Follow;
@@ -10,8 +12,7 @@ use App\Comment;
 use App\Token;
 use App\Role;
 use Mail;
-use Illuminate\Pagination;
-
+use Storage;
 use Validator;
 
 class Usercontroller extends Controller
@@ -65,7 +66,7 @@ class Usercontroller extends Controller
         $user->save();
         Mail::raw('Welcome, you have sucessfully registered!',function($message)
         {
-            $message->to('swarnali.marik@gmail.com')->subject('test mail');
+            $message->to('swarnali.marik@gmail.com')->subject('ARticle Site');
             $message->from('swarnali.marik5@gmail.com');
 
         });
@@ -121,6 +122,8 @@ class Usercontroller extends Controller
         $article->userid = $userid;
         $article->title = $request->input('title');
         $article->description = $request->input('description');
+        $image= $this->uploadImage($request);
+        $article->image= $image;
         $article->save();
         return response()->json(array("status"=>true,
         "data"=>$article,
@@ -132,6 +135,23 @@ class Usercontroller extends Controller
         }
 
     }
+    public function uploadImage(Request $request)
+      {
+        if(!$request->hasFile('image')) {
+          return response()->json(['upload_file_not_found'], 400);
+      }
+      $file = $request->file('image');
+      if(!$file->isValid()) {
+          return response()->json(['invalid_file_upload'], 400);
+      }
+      $filename=$file->getClientOriginalName();
+      
+      $path = $request->image->storeAs('images',$filename,'public');
+      $imagepath= app('url')->asset("storage/app/images/".$filename); 
+      echo $imagepath;
+      }
+  
+    
     
    /**
      * @OA\Get(
@@ -188,6 +208,7 @@ class Usercontroller extends Controller
           "message"=>"unauthorised"));
          }
       }
+      
       /**
      * @OA\Post(
      *     path="/comment",
