@@ -19,30 +19,15 @@ $router->post("login","Authcontroller@login");
  //$router->post("upload","Usercontroller@uploadImage");
 
 $router->group(['middleware' => 'auth'], function ($router) {
-$router->post("createarticles","Usercontroller@createArticle");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
-$router->get("showarticles","Usercontroller@showArticle");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
-    $router->post("comment","Usercontroller@comment");
-    });
-$router->group(['middleware' => 'auth'], function ($router) {
+$router->post("createarticles","ArticleController@createArticle");
+$router->get("showarticles","ArticleController@showArticle");
+$router->post("comment","CommentController@comment");
 $router->post("follow","Usercontroller@follow");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
 $router->post("unfollow","Usercontroller@unfollow");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
-    $router->put('/update/{id}',"usercontroller@update");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
-$router->get("Adminview","Usercontroller@adminview");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
-$router->delete("AdminDeleteArticle","Usercontroller@adminDeleteArticle");
-});
-$router->group(['middleware' => 'auth'], function ($router) {
+$router->put('/update/{id}',"ArticleController@update");
+$router->get("Adminview","AdminController@adminview");
+$router->delete("AdminDeleteArticle","AdminController@adminDeleteArticle");
 $router->delete("logout","Usercontroller@logout");
 });
+
 
