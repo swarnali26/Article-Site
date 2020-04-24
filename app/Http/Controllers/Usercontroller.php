@@ -49,7 +49,7 @@ class Usercontroller extends Controller
         ]);
         if($validator->fails())
         {
-         return response()->json(['error'=>$validator->errors()],401);
+          return response()->json(['error'=>$validator->errors()],401);
         }
         $user = new User;
         $user->firstname = $request->input('firstname');
@@ -59,12 +59,18 @@ class Usercontroller extends Controller
         $user->phone = $request->input('phone');
         $user->roleid=$role;
         $user->save();
-        Mail::raw('Welcome, you have sucessfully registered!',function($message)
+        Mail::send([],[], function($message) use($user) 
         {
-            $message->to('swarnali.marik@gmail.com')->subject('Article Site');
-            $message->from('swarnali.marik5@gmail.com');
-
+          $message->from('swarnali.marik5@gmail.com','Article Site');
+          $message->to('swarnali.marik@gmail.com');
+          $message->subject('Welcome');
+          $x=$message->setBody( '<html><h1>Dear, ' . $user->firstname . '</h1>
+          <p>You have successfully registered!</p>
+          <p>Thank You</p></html>', 'text/html' );
+          
+        
         });
+        
         return response()->json(array("status"=>true,
         "data"=>$user,
         "message"=> "Mail has been sent"));
@@ -171,12 +177,21 @@ class Usercontroller extends Controller
       $userid= $request->userid;
       $roleid= Token::where('userid','=', $userid)->value('roleid');
       $role= Role::where('roleid','=',$roleid)->value('name');
+      $check= Follow::where('userid','=', $userid)->value('follow');
       if(($role)=='user')
       {
-         $delete=$request->input('unfollow');
-         Follow::where('follow', '=', $delete)->select('userid','=',$userid)->delete();
-         return response()->json(array("status"=>true,
-         "message"=>"unfollowed to the userid ".$delete ));
+         if(($check)==0)
+           {
+             return response()->json(array("status"=> false,"message"=>"Already Unfollowed"));
+           }
+         else 
+          {
+
+            $delete=$request->input('unfollow');
+            Follow::where('follow', '=', $delete)->select('userid','=',$userid)->delete();
+            return response()->json(array("status"=>true,
+            "message"=>"unfollowed to the userid ".$delete ));
+          }
       }
       else
       {
